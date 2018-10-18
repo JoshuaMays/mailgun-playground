@@ -12,7 +12,7 @@ const apiKey = process.env.REACT_APP_MAILGUN_API_KEY;
 app.post('/api/addMember', jsonParser, (req, res) => {
   if (!req) return res.sendStatus(400);
 
-  const { emailAddress } = req.body;
+  const { address, name } = req.body.member;
 
   const mailgun = require('mailgun-js')({apiKey, domain});
 
@@ -20,11 +20,11 @@ app.post('/api/addMember', jsonParser, (req, res) => {
 
   const bob = {
     subscribed: true,
-    address: emailAddress
+    address,
+    name
   };
 
   list.members().create(bob, function (error, data) {
-    console.log(data);
     res.send({
       member: data.member
     });

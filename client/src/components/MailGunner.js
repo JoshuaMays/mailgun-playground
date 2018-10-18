@@ -10,22 +10,39 @@ class MailGunner extends Component {
     super(props);
 
     this.state = {
-      emailAddress: ''
+      address: '',
+      name: ''
     };
 
     this.onEmailInputChange = this.onEmailInputChange.bind(this);
+    this.onNameInputChange = this.onNameInputChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
 
   }
 
   onFormSubmit(e) {
     e.preventDefault();
-    this.props.addMember(this.state.emailAddress);
+    const user = {
+      address: this.state.address,
+      name: this.state.name
+    };
+
+    this.props.addMember(user);
+    this.setState({
+      address: '',
+      name: ''
+    });
   }
 
   onEmailInputChange(e) {
     this.setState({
-      emailAddress: e.target.value
+      address: e.target.value
+    });
+  }
+
+  onNameInputChange(e) {
+    this.setState({
+      name: e.target.value
     });
   }
 
@@ -37,8 +54,13 @@ class MailGunner extends Component {
           onSubmit={this.onFormSubmit}>
           <input
             placeholder="Email Address"
-            value={this.state.emailAddress}
+            value={this.state.address}
             onChange={this.onEmailInputChange}
+            />
+          <input
+            placeholder="Your Name"
+            value={this.state.name}
+            onChange={this.onNameInputChange}
             />
           <button type="submit">Submit</button>
         </form>

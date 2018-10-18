@@ -2,11 +2,10 @@ import axios from 'axios';
 
 export const ADD_MEMBER = 'ADD_MEMBER';
 
-export function addMember(emailAddress) {
-  console.log('in action', emailAddress);
+export function addMember(member) {
 
   const request = axios.post('/api/addMember', {
-    emailAddress
+    member
   });
 
   return {
